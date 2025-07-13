@@ -1,5 +1,22 @@
 # TCRdesign: an antigen-specific generative language model for de novo design of T-cell receptors
 
+T cell receptors (TCR), which are heterodimers of α and β chains that recognize foreign antigens, are of great significance
+to current immunotherapy. Although artificial intelligence (AI) has explosively accelerated de novo protein design, the
+challenge of therapeutic TCR design has been overlooked by most researchers. Existing TCR engineering relies heavily on
+isolating antigen-specific TCRs from tumor tissues, which requires a large amount of labor resources and wet experimental
+verification. To mitigate this issue, we present TCRdesign, a pre-trained generative protein language model for the de
+novo design of artificial TCR β-chain complementarity-determining region 3 (CDR3β) sequences conditioned on antigen-
+binding specificity. In parallel, we develop a high-accuracy binding predictor (TCRBinder) that couples paired α/β
+chain information with antigen sequences to assess binding specificity. Our extensive experiments demonstrate that (1)
+TCRdesign surpasses state-of-the-art baselines in generating antigen-specific TCR sequences. The model leverages paired-
+chain coherence to refine amino-acid level interaction patterns. (2) TCRdesign-generated TCR sequences exhibit better
+antigen binding capability to diverse oncogenic hotspots compared with natural counterparts. (3) TCRdesign inherits
+the intrinsic properties of large protein language models, enabling effectively identify the determinant residues in TCR-
+antigen binding, which enhances its interpretability. These results highlight the significant capability of TCRdesign in
+understanding and generating TCR sequences with an antigen-specific interaction pattern, charting a versatile path
+toward AI-driven T-cell engineering for precision immunotherapy.
+![image](https://github.com/lixiaokun2020/TCRdesign/blob/main/Framework.png)
+
 ## System requirements
 This tool is supported for Linux. The tool has been tested on the following systems:
 
