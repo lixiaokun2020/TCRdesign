@@ -1,0 +1,43 @@
+
+{
+    "name": "TP-Seq2seq-Evaluate-Common",
+    "n_gpu": 1,
+
+    "data_loader": {
+        "type": "TCRAntigenSeq2SeqDataset",
+        "args":{
+            "seed": 0,
+            "data_dir": "../ProcessedData/TCR_Antigen.csv",
+            "tcr_vocab_dir": "../ProcessedData/vocab/tcr-2-3.csv",
+            "antigen_vocab_dir": "../ProcessedData/vocab/beta-2-3.csv",
+            "tcr_tokenizer_dir": "/data/coding/TCRdesign/Result_beta/checkpoints/BERT-Pretrain-common-MAA-NGPUs/0421_213847",
+            "antigen_tokenizer_dir": "/data/coding/TCRdesign/Result_beta/checkpoints/BERT-Pretrain-common-MAA-NGPUs/0421_213847",
+            "tcr_tokenizer_name": "common",
+            "antigen_tokenizer_name": "common",
+            "tcr_token_length_list": "2,3",
+            "antigen_token_length_list": "2,3",
+            "TCR_seq_name": "CDR3", 
+            "antigen_seq_name": "Antigen",
+            "TCR_max_len": 18,
+            "antigen_max_len": 12,
+
+            "encoder_input": "Antigen",
+            "valid_split": 0.1,
+            "shuffle": true
+        }
+    },
+    "origin_seq" : "EAAVTQSPRNKVAVTGGKVTLSCNQTNNHNNMYWYRQDTGHGLRLIHYSYGAGSTEKGDIPDGYKASRPSQENFSLILELATPSQTSVYFCASGDFGGYEQYFGPGTRLTVLEDLKNVFPPEVAVFEPSEAEISHTQKATLVCLATGF",
+    "origin_alpha":"QQKVQQSPESLIVPEGGMASLNCTSSDRNVDYFWWYRQHSGKSPKMLMSIFSNGEKEEGRFTVHLNKASLHTSLHIRDSQPSDSALYLCAARDSNYQLIWGSGTKLIIKPDIQNPDPAVYQLRDSKSSDKSVCLFTDFDSQTNVSQSK",
+    "cdr3_begin" : 91,
+    "cdr3_end" : 103,
+    "use_antigen":"VVGAVGVGK",
+    
+    "TransformerVariant": "Antigen-TCR",
+    "resume": "/data/coding/TCRdesign/Result_TCR_seq2seq/checkpoints/AGTCR-Finetuning-Seq2seq-Common/0713_084535",
+
+    "trainer": {
+        "save_dir": "../Result_TCR_gen/",
+        "verbosity": 2
+    }
+
+}

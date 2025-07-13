@@ -1,0 +1,78 @@
+{
+    "name": "BERT-Finetunning-TCR-Binding-common-agtcr",
+    "n_gpu": 1,
+
+    "data_loader": {
+        "type": "TCR_Antigen_Dataset_AnDan",
+        "args":{
+            "seed": 7,
+            "batch_size": 16,
+            "validation_split": 0.1,
+            "test_split": 0.1,
+            "num_workers": 8,
+            "data_dir": "../TCR_Antigen.csv",
+            "tcr_vocab_dir": "../ProcessedData/vocab/beta-2-3.csv",
+            
+            "tcr_tokenizer_dir": "/data/coding/TCRdesign/Result_beta/checkpoints/BERT-Pretrain-common-MAA-NGPUs/0421_213847",
+            
+            "tokenizer_name": "common",
+            
+            "token_length_list": "2,3",
+            
+            "antigen_seq_name": "Antigen",
+            "beta_seq_name": "TCR_Beta",
+            "alpha_seq_name": "TCR_Alpha",
+            
+            "beta_max_len": 120,
+            "alpha_max_len": 120,
+            "antigen_max_len": 12,
+            
+            "test_tcrs": 1,
+            "shuffle": true
+        }
+    },
+
+    "arch": {
+        "type": "BERTBinding_TP_cnn",
+        "args": {
+            "beta_dir": "/data/coding/TCRdesign/Result_beta/checkpoints/BERT-Pretrain-common-MAA-NGPUs/0421_213847",
+            "alpha_dir": "/data/coding/TCRdesign/Result_alpha/checkpoints/BERT-Pretrain-common-MAA-NGPUs/0322_084239/checkpoint-100000",
+            "antigen_dir": "/data/coding/TCRdesign/Code/esm2/esm2_150m/",
+            "emb_dim": 256
+        }
+    },
+
+    "optimizer": {
+        "type": "AdamW",
+        "args":{
+            "BERT_lr":2e-5,
+            "lr": 1e-4,
+            "weight_decay": 0.0001
+        }
+    },
+    "loss": "bce_withlogits_loss",
+    "is_regression": false,
+    "metrics": [
+        "accuracy", "recall", "roc_auc"
+    ],
+    "lr_scheduler": {
+        "type": "StepLR",
+        "args": {
+            "step_size": 10,
+            "gamma": 0.5
+        }
+    },
+    "trainer": {
+        "epochs": 20,
+        
+        "save_dir": "../Result_TP/",
+        "save_period": 200,
+        "verbosity": 2,
+        "logging_steps": 25,
+        "monitor": "min val_loss",
+        "early_stop": 5,
+
+        "tensorboard": true
+    }
+}
+

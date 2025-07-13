@@ -1,0 +1,58 @@
+{
+    "name": "AGTCR-Finetuning-Seq2seq-Common",
+    "n_gpu": 1,
+
+    "data_loader": {
+        "type": "TCRAntigenSeq2SeqDataset",
+        "args":{
+            "seed": 0,
+            "data_dir": "../TCR_pHLA.csv",
+
+            "tcr_vocab_dir": "../ProcessedData/vocab/beta-2-3.csv",
+            "antigen_vocab_dir": "../ProcessedData/vocab/beta-2-3.csv",
+            "tcr_tokenizer_dir": "/data/coding/TCRdesign/Result_beta/checkpoints/BERT-Pretrain-common-MAA-NGPUs/0421_213847/",
+            "antigen_tokenizer_dir": "/data/coding/TCRdesign/Result_beta/checkpoints/BERT-Pretrain-common-MAA-NGPUs/0421_213847/",
+            "tcr_tokenizer_name": "common",
+            "antigen_tokenizer_name": "common",
+            "tcr_token_length_list": "2,3",
+            "antigen_token_length_list": "2,3",
+            "TCR_seq_name": "CDR3",
+            "antigen_seq_name": "Antigen",
+            "TCR_max_len": 18,
+            "antigen_max_len": 12,
+
+            "encoder_input": "antigen",
+            "valid_split": 0.01,
+            "shuffle": true
+        }
+    },
+
+    "model": {
+        "TransformerVariant": "Antigen-TCR",
+        "TCRBert_dir": "/data/coding/TCRdesign/Result_beta/checkpoints/BERT-Pretrain-common-MAA-NGPUs/0421_213847/",
+        "AntigenBert_dir": "/data/coding/TCRdesign/Code/esm2/esm2_150m",
+        "beam_search":{
+            "early_stopping": true,
+            "num_beams": 20,
+            "no_repeat_ngram_size": 2,
+            "num_beam_groups": 10
+        }
+    },
+
+    "metrics":{
+        "blosum_dir": "../RawData/blosum62.json",
+        "blosum": true
+    },
+
+    "trainer": {
+        "epochs": 5,
+        "batch_size": 4,
+        "save_dir": "../Result_TCR_seq2seq/",
+        "save_steps": 1000,
+        "lr": 1e-4,
+        "warmup": 0.0,
+        "eval_accumulation_steps": 16,
+        "logging_steps": 1000,
+        "eval_steps": 1000
+    }
+}

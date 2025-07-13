@@ -1,0 +1,77 @@
+{
+    "name": "Eval-genetation",
+    "n_gpu": 1,
+
+    "data_loader": {
+        "type": "TCR_Antigen_Dataset_AnDan",
+        "args":{
+            "seed": 2,
+            "batch_size": 16,
+            "validation_split": 0.1,
+            "test_split": 0.1,
+            "num_workers": 8,
+            "data_dir": "/data/coding/TCRdesign/Result_TCR_gen/datasplit/CoV_TP-Seq2seq-Evaluate-Common/0713_101151/result.csv",
+            "tcr_vocab_dir": "../ProcessedData/vocab/beta-2-3.csv",
+            
+            "tcr_tokenizer_dir": "/data/coding/TCRdesign/Result_beta/checkpoints/BERT-Pretrain-common-MAA-NGPUs/0421_213847",
+            
+            "tokenizer_name": "common",
+            
+            "token_length_list": "2,3",
+            
+            "antigen_seq_name":"Antigen",
+            "beta_seq_name":"Beta_Chain",
+            "alpha_seq_name":"Alpha_Chain",
+            "label_name":"Label",
+            "beta_max_len": 120,
+            "alpha_max_len": 120,
+            "antigen_max_len": 12,
+            
+            "test_tcrs": 1,
+            "shuffle": false
+        }
+    },
+
+    "arch": {
+        "type": "BERTBinding_TP_cnn",
+        "args": {
+            "beta_dir": "/data/coding/TCRdesign/Result_beta/checkpoints/BERT-Pretrain-common-MAA-NGPUs/0421_213847",
+            "alpha_dir": "/data/coding/TCRdesign/Result_alpha/checkpoints/BERT-Pretrain-common-MAA-NGPUs/0322_084239/checkpoint-100000",
+            "antigen_dir": "/data/coding/TCRdesign/Code/esm2/esm2_150m/",
+            "emb_dim": 256
+        }
+    },
+    "discriminator_resume": "/data/coding/TCRdesign/Result_TP/checkpoints/BERT-Finetunning-TCR-Binding-common-agtcr/0712_200217/model_best.pth",
+
+
+    "optimizer": {
+        "type": "AdamW",
+        "args":{
+            "lr": 8e-6,
+            "weight_decay": 0
+        }
+    },
+    "loss": "bce_withlogits_loss",
+    "metrics": [
+        "accuracy", "recall", "roc_auc"
+    ],
+    "lr_scheduler": {
+        "type": "StepLR",
+        "args": {
+            "step_size": 10,
+            "gamma": 0.5
+        }
+    },
+    "trainer": {
+        "epochs": 15,
+        
+        "save_dir": "../Result_TCR_eval/",
+        "save_period": 50,
+        "verbosity": 2,
+        "logging_steps":25,
+        "monitor": "min val_loss",
+        "early_stop": 5,
+
+        "tensorboard": true
+    }
+}
