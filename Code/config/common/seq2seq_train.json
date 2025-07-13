@@ -6,7 +6,7 @@
         "type": "TCRAntigenSeq2SeqDataset",
         "args":{
             "seed": 0,
-            "data_dir": "../TCR_pHLA.csv",
+            "data_dir": "../TP.csv",
 
             "tcr_vocab_dir": "../ProcessedData/vocab/beta-2-3.csv",
             "antigen_vocab_dir": "../ProcessedData/vocab/beta-2-3.csv",
