@@ -105,4 +105,4 @@ Due to the space limitation, we present part of data used in this project in the
 
 ## Contact
 If you have any questions, please contact us via email: 
-- [Qiang Yang](mailto: yj219722460@163.com)
+- [Qiang Yang](mail to: yangq@stu.hit.edu.cn)
