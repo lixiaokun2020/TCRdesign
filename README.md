@@ -39,7 +39,8 @@ pip install -r requirements.txt
 ## How to train and use
 The training of 'TCRdesign' and 'TCRBinder' consists of three steps: first, we pre-train two language models on paired TCR beta and alpha chain sequences, respectively. Then, TCRBinder is constructed and fine-tuned using Antigen-TCR binding data. Finally, we develop TCRBinder by Roformer and ESM2 using paired data for designing and evaluating the AI-generated CDR3β. The details of each training are in the `Code/config` folder. Of note, make sure you are in the '/TCRdesign/Code' folder.
 
-[![Open In Colab](https://colab.research.googleusercontent.com/assets/colab-badge.svg)](https://colab.research.google.com/github/lixiaokun2020/TCRdesign/blob/main/Code/Tutorial.ipynb)
+[![Open In Colab](https://colab.research.googleusercontent.com/assets/colab-badge.svg)]
+(https://colab.research.google.com/github/lixiaokun2020/TCRdesign/blob/main/Code/Tutorial.ipynb)
 
 ### 1. Pre-train on full-length paired-chain sequences
 The MAA task is used for the self-training of α-Roformer and β-Roformer. 
